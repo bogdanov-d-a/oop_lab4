@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicalBodies", "PhysicalBodies\PhysicalBodies.vcxproj", "{433CCB3C-3601-4EE3-A21A-63F92B3309E2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicalBodiesTester", "PhysicalBodiesTester\PhysicalBodiesTester.vcxproj", "{7435B056-B673-42C5-A68A-B7926850FA2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{433CCB3C-3601-4EE3-A21A-63F92B3309E2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{433CCB3C-3601-4EE3-A21A-63F92B3309E2}.Debug|Win32.Build.0 = Debug|Win32
+		{433CCB3C-3601-4EE3-A21A-63F92B3309E2}.Release|Win32.ActiveCfg = Release|Win32
+		{433CCB3C-3601-4EE3-A21A-63F92B3309E2}.Release|Win32.Build.0 = Release|Win32
+		{7435B056-B673-42C5-A68A-B7926850FA2E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7435B056-B673-42C5-A68A-B7926850FA2E}.Debug|Win32.Build.0 = Debug|Win32
+		{7435B056-B673-42C5-A68A-B7926850FA2E}.Release|Win32.ActiveCfg = Release|Win32
+		{7435B056-B673-42C5-A68A-B7926850FA2E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
