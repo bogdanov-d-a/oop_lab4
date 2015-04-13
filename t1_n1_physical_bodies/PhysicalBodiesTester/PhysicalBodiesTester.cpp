@@ -25,6 +25,11 @@ const double CONE_TEST_HEIGHT = 13;
 const double CONE_TEST_VOLUME = ((1.0 / 3) * (M_PI * pow(CONE_TEST_BASE_RADIUS, 2)) * CONE_TEST_HEIGHT);
 const double CONE_TEST_MASS = SOLID_TEST_DENSITY * CONE_TEST_VOLUME;
 
+const double CYLINDER_TEST_BASE_RADIUS = 3.8;
+const double CYLINDER_TEST_HEIGHT = 7;
+const double CYLINDER_TEST_VOLUME = (M_PI * pow(CYLINDER_TEST_BASE_RADIUS, 2) * CYLINDER_TEST_HEIGHT);
+const double CYLINDER_TEST_MASS = SOLID_TEST_DENSITY * CYLINDER_TEST_VOLUME;
+
 
 struct SphereFixture
 {
@@ -127,6 +132,41 @@ BOOST_AUTO_TEST_CASE(ConeHasVolume)
 BOOST_AUTO_TEST_CASE(ConeHasMass)
 {
 	BOOST_CHECK_EQUAL(coneAsBody.GetMass(), CONE_TEST_MASS);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+struct CylinderFixture
+{
+	CCylinder cylinder;
+	CSolid &cylinderAsSolid;
+	CBody &cylinderAsBody;
+
+	CylinderFixture()
+		:cylinder(SOLID_TEST_DENSITY, CYLINDER_TEST_BASE_RADIUS, CYLINDER_TEST_HEIGHT)
+		,cylinderAsSolid(cylinder)
+		,cylinderAsBody(cylinder)
+	{}
+};
+
+BOOST_FIXTURE_TEST_SUITE(Cylinder, CylinderFixture)
+
+BOOST_AUTO_TEST_CASE(CylinderHasDensityBaseRadiusAndHeight)
+{
+	BOOST_CHECK_EQUAL(cylinder.GetBaseRadius(), CYLINDER_TEST_BASE_RADIUS);
+	BOOST_CHECK_EQUAL(cylinder.GetHeight(), CYLINDER_TEST_HEIGHT);
+	BOOST_CHECK_EQUAL(cylinderAsBody.GetDensity(), SOLID_TEST_DENSITY);
+}
+
+BOOST_AUTO_TEST_CASE(CylinderHasVolume)
+{
+	BOOST_CHECK_EQUAL(cylinderAsBody.GetVolume(), CYLINDER_TEST_VOLUME);
+}
+
+BOOST_AUTO_TEST_CASE(CylinderHasMass)
+{
+	BOOST_CHECK_EQUAL(cylinderAsBody.GetMass(), CYLINDER_TEST_MASS);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
