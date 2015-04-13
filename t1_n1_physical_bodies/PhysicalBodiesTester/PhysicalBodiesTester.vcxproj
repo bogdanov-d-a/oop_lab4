@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\PhysicalBodies\Body.cpp" />
+    <ClCompile Include="..\PhysicalBodies\Parallelepiped.cpp" />
     <ClCompile Include="..\PhysicalBodies\Solid.cpp" />
     <ClCompile Include="..\PhysicalBodies\Sphere.cpp" />
     <ClCompile Include="PhysicalBodiesTester.cpp" />

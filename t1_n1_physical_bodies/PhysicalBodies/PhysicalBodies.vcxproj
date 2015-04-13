@@ -79,6 +79,7 @@
   <ItemGroup>
     <ClInclude Include="Bodies.h" />
     <ClInclude Include="Body.h" />
+    <ClInclude Include="Parallelepiped.h" />
     <ClInclude Include="PhysicalBodiesHeader.h" />
     <ClInclude Include="Solid.h" />
     <ClInclude Include="Sphere.h" />
@@ -87,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
+    <ClCompile Include="Parallelepiped.cpp" />
     <ClCompile Include="PhysicalBodies.cpp" />
     <ClCompile Include="Solid.cpp" />
     <ClCompile Include="Sphere.cpp" />
