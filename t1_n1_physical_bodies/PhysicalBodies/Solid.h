@@ -14,4 +14,7 @@ public:
 
 private:
 	double m_density;
+
+protected:
+	static void ThrowOnNonPositiveValue(const std::string &name, double value);
 };

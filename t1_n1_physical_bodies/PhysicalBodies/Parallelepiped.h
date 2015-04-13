@@ -15,5 +15,4 @@ public:
 
 private:
 	double m_width, m_height, m_depth;
-	static void ThrowOnBadDimension(const std::string &name, double value);
 };

@@ -7,10 +7,7 @@ CSphere::CSphere(double density, double radius)
 	:CSolid(density)
 	,m_radius(radius)
 {
-	if (radius <= 0)
-	{
-		throw invalid_argument("Radius should be positive");
-	}
+	ThrowOnNonPositiveValue("Radius", radius);
 }
 
 double CSphere::GetRadius() const

@@ -9,9 +9,9 @@ CParallelepiped::CParallelepiped(double density, double width, double height, do
 	,m_height(height)
 	,m_depth(depth)
 {
-	ThrowOnBadDimension("Width", width);
-	ThrowOnBadDimension("Height", height);
-	ThrowOnBadDimension("Depth", depth);
+	ThrowOnNonPositiveValue("Width", width);
+	ThrowOnNonPositiveValue("Height", height);
+	ThrowOnNonPositiveValue("Depth", depth);
 }
 
 double CParallelepiped::GetWidth() const
@@ -32,12 +32,4 @@ double CParallelepiped::GetDepth() const
 double CParallelepiped::GetVolume() const
 {
 	return (m_width * m_height * m_depth);
-}
-
-void CParallelepiped::ThrowOnBadDimension(const std::string &name, double value)
-{
-	if (value <= 0)
-	{
-		throw invalid_argument(name + " should be positive");
-	}
 }

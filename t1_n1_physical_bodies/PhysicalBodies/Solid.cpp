@@ -6,10 +6,7 @@ using namespace std;
 CSolid::CSolid(double density)
 	:m_density(density)
 {
-	if (density <= 0)
-	{
-		throw invalid_argument("Density should be positive");
-	}
+	ThrowOnNonPositiveValue("Density", density);
 }
 
 CSolid::~CSolid()
@@ -23,4 +20,12 @@ double CSolid::GetDensity() const
 double CSolid::GetMass() const
 {
 	return (GetVolume() * GetDensity());
+}
+
+void CSolid::ThrowOnNonPositiveValue(const string &name, double value)
+{
+	if (value <= 0)
+	{
+		throw invalid_argument(name + " should be positive");
+	}
 }
