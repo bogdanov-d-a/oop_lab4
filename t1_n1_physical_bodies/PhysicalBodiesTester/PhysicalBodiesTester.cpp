@@ -20,6 +20,11 @@ const double PARALLELEPIPED_TEST_VOLUME =
 
 const double PARALLELEPIPED_TEST_MASS = SOLID_TEST_DENSITY * PARALLELEPIPED_TEST_VOLUME;
 
+const double CONE_TEST_BASE_RADIUS = 4.6;
+const double CONE_TEST_HEIGHT = 13;
+const double CONE_TEST_VOLUME = ((1.0 / 3) * (M_PI * pow(CONE_TEST_BASE_RADIUS, 2)) * CONE_TEST_HEIGHT);
+const double CONE_TEST_MASS = SOLID_TEST_DENSITY * CONE_TEST_VOLUME;
+
 
 struct SphereFixture
 {
@@ -87,6 +92,41 @@ BOOST_AUTO_TEST_CASE(ParallelepipedHasVolume)
 BOOST_AUTO_TEST_CASE(ParallelepipedHasMass)
 {
 	BOOST_CHECK_EQUAL(parallelepipedAsBody.GetMass(), PARALLELEPIPED_TEST_MASS);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+struct ConeFixture
+{
+	CCone cone;
+	CSolid &coneAsSolid;
+	CBody &coneAsBody;
+
+	ConeFixture()
+		:cone(SOLID_TEST_DENSITY, CONE_TEST_BASE_RADIUS, CONE_TEST_HEIGHT)
+		,coneAsSolid(cone)
+		,coneAsBody(cone)
+	{}
+};
+
+BOOST_FIXTURE_TEST_SUITE(Cone, ConeFixture)
+
+BOOST_AUTO_TEST_CASE(ConeHasDensityBaseRadiusAndHeight)
+{
+	BOOST_CHECK_EQUAL(cone.GetBaseRadius(), CONE_TEST_BASE_RADIUS);
+	BOOST_CHECK_EQUAL(cone.GetHeight(), CONE_TEST_HEIGHT);
+	BOOST_CHECK_EQUAL(coneAsBody.GetDensity(), SOLID_TEST_DENSITY);
+}
+
+BOOST_AUTO_TEST_CASE(ConeHasVolume)
+{
+	BOOST_CHECK_EQUAL(coneAsBody.GetVolume(), CONE_TEST_VOLUME);
+}
+
+BOOST_AUTO_TEST_CASE(ConeHasMass)
+{
+	BOOST_CHECK_EQUAL(coneAsBody.GetMass(), CONE_TEST_MASS);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
