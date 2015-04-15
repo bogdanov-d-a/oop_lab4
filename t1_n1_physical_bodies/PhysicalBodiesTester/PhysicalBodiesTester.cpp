@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "../PhysicalBodies/Bodies.h"
 
+using namespace std;
+
 
 const double SOLID_TEST_DENSITY = 8920;
 
@@ -170,3 +172,79 @@ BOOST_AUTO_TEST_CASE(CylinderHasMass)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_CASE(TestEmptyCompound)
+{
+	CCompound compound;
+	CBody &compoundAsBody = compound;
+
+	{
+		bool exceptionCaught = false;
+		try
+		{
+			compoundAsBody.GetDensity();
+		}
+		catch (const runtime_error &e)
+		{
+			(void)e;
+			exceptionCaught = true;
+		}
+		BOOST_CHECK(exceptionCaught);
+	}
+
+	BOOST_CHECK_EQUAL(compoundAsBody.GetVolume(), 0);
+	BOOST_CHECK_EQUAL(compoundAsBody.GetMass(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(AddCompoundToItselfDirectly)
+{
+	shared_ptr<CCompound> compound(new CCompound());
+
+	bool exceptionCaught = false;
+	try
+	{
+		compound->AddBody(compound);
+	}
+	catch (const runtime_error &e)
+	{
+		(void)e;
+		exceptionCaught = true;
+	}
+	BOOST_CHECK(exceptionCaught);
+}
+
+BOOST_AUTO_TEST_CASE(AddCompoundToItselfChained)
+{
+	shared_ptr<CCompound> compound1(new CCompound());
+	shared_ptr<CCompound> compound2(new CCompound());
+	compound1->AddBody(compound2);
+
+	bool exceptionCaught = false;
+	try
+	{
+		compound2->AddBody(compound1);
+	}
+	catch (const runtime_error &e)
+	{
+		(void)e;
+		exceptionCaught = true;
+	}
+	BOOST_CHECK(exceptionCaught);
+}
+
+BOOST_AUTO_TEST_CASE(CompoundComplexTest)
+{
+	shared_ptr<CCompound> comp1(new CCompound());
+	comp1->AddBody(shared_ptr<CSphere>(new CSphere(SOLID_TEST_DENSITY, SPHERE_TEST_RADIUS)));
+
+	{
+		shared_ptr<CCompound> tmpComp(new CCompound());
+		tmpComp->AddBody(shared_ptr<CCone>(new CCone(SOLID_TEST_DENSITY, CONE_TEST_BASE_RADIUS, CONE_TEST_HEIGHT)));
+		comp1->AddBody(tmpComp);
+	}
+
+	BOOST_CHECK_EQUAL(comp1->GetVolume(), SPHERE_TEST_VOLUME + CONE_TEST_VOLUME);
+	BOOST_CHECK_EQUAL(comp1->GetMass(), SPHERE_TEST_MASS + CONE_TEST_MASS);
+	BOOST_CHECK_EQUAL(comp1->GetDensity(), comp1->GetMass() / comp1->GetVolume());
+}

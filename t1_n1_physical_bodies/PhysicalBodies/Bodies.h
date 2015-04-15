@@ -4,3 +4,4 @@
 #include "Parallelepiped.h"
 #include "Cone.h"
 #include "Cylinder.h"
+#include "Compound.h"

@@ -50,5 +50,8 @@
     <ClCompile Include="..\PhysicalBodies\Cylinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\PhysicalBodies\Compound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
