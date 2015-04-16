@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Cylinder.h"
 
+using namespace std;
+
 CCylinder::CCylinder(double density, double baseRadius, double height)
 	:CSolid(density)
 	,m_baseRadius(baseRadius)
@@ -20,4 +22,9 @@ double CCylinder::GetHeight() const
 double CCylinder::GetVolume() const
 {
 	return (M_PI * pow(m_baseRadius, 2) * m_height);
+}
+
+string CCylinder::GetName() const
+{
+	return "Cylinder";
 }

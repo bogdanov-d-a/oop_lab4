@@ -15,4 +15,5 @@ public:
 private:
 	std::vector<std::shared_ptr<CBody>> m_bodies;
 	bool HasBodyInside(const CBody *body) const;
+	std::string GetName() const override;
 };

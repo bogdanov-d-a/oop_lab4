@@ -14,4 +14,5 @@ public:
 
 private:
 	double m_baseRadius, m_height;
+	std::string GetName() const override;
 };

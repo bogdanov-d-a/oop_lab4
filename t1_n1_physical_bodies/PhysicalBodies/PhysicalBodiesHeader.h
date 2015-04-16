@@ -8,3 +8,4 @@
 #include <numeric>
 #include <typeinfo>
 #include <memory>
+#include <string>

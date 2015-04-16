@@ -15,4 +15,5 @@ public:
 
 private:
 	double m_width, m_height, m_depth;
+	std::string GetName() const override;
 };

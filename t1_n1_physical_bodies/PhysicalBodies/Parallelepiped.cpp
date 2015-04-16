@@ -33,3 +33,8 @@ double CParallelepiped::GetVolume() const
 {
 	return (m_width * m_height * m_depth);
 }
+
+string CParallelepiped::GetName() const
+{
+	return "Parallelepiped";
+}

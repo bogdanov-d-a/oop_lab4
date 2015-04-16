@@ -13,4 +13,5 @@ public:
 
 private:
 	double m_radius;
+	std::string GetName() const override;
 };

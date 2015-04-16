@@ -73,3 +73,8 @@ bool CCompound::HasBodyInside(const CBody *body) const
 
 	return false;
 }
+
+string CCompound::GetName() const
+{
+	return "Compound";
+}
