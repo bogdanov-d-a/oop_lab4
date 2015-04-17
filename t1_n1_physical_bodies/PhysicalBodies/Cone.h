@@ -11,6 +11,7 @@ public:
 	double GetBaseRadius() const;
 	double GetHeight() const;
 	double GetVolume() const override;
+	std::string ToString() const override;
 
 private:
 	double m_baseRadius, m_height;

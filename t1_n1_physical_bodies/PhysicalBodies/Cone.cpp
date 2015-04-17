@@ -27,6 +27,15 @@ double CCone::GetVolume() const
 	return ((1.0 / 3) * (M_PI * pow(m_baseRadius, 2)) * m_height);
 }
 
+string CCone::ToString() const
+{
+	return (
+		CSolid::ToString() +
+		", base radius = " + to_string(GetBaseRadius()) +
+		", height = " + to_string(GetHeight())
+	);
+}
+
 string CCone::GetName() const
 {
 	return "Cone";

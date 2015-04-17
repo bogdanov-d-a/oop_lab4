@@ -24,6 +24,15 @@ double CCylinder::GetVolume() const
 	return (M_PI * pow(m_baseRadius, 2) * m_height);
 }
 
+string CCylinder::ToString() const
+{
+	return (
+		CSolid::ToString() +
+		", base radius = " + to_string(GetBaseRadius()) +
+		", height = " + to_string(GetHeight())
+	);
+}
+
 string CCylinder::GetName() const
 {
 	return "Cylinder";

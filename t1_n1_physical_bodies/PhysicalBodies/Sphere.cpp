@@ -20,6 +20,14 @@ double CSphere::GetVolume() const
 	return ((4.0 / 3) * M_PI * pow(m_radius, 3));
 }
 
+string CSphere::ToString() const
+{
+	return (
+		CSolid::ToString() +
+		", radius = " + to_string(GetRadius())
+	);
+}
+
 string CSphere::GetName() const
 {
 	return "Sphere";

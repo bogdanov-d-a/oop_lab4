@@ -34,6 +34,16 @@ double CParallelepiped::GetVolume() const
 	return (m_width * m_height * m_depth);
 }
 
+string CParallelepiped::ToString() const
+{
+	return (
+		CSolid::ToString() +
+		", width = " + to_string(GetWidth()) +
+		", height = " + to_string(GetHeight()) +
+		", depth = " + to_string(GetDepth())
+	);
+}
+
 string CParallelepiped::GetName() const
 {
 	return "Parallelepiped";

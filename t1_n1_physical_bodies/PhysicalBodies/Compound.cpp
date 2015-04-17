@@ -48,6 +48,22 @@ double CCompound::GetDensity() const
 	return (GetMass() / GetVolume());
 }
 
+string CCompound::ToString() const
+{
+	string result(
+		CBody::ToString() +
+		", body amount = " + to_string(m_bodies.size()) +
+		"\n"
+	);
+
+	for (auto body : m_bodies)
+	{
+		result += (body->ToString() + "\n");
+	}
+
+	return result;
+}
+
 bool CCompound::HasBodyInside(const CBody *body) const
 {
 	for (auto curBody : m_bodies)
