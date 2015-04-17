@@ -26,7 +26,14 @@ void PromptBodies(istream &strm, StringToHandlerMap const& handlers)
 				params = params.substr(1);
 			}
 
-			it->second(params);
+			try
+			{
+				it->second(params);
+			}
+			catch (invalid_argument const& e)
+			{
+				cout << e.what() << "\n";
+			}
 		}
 		else
 		{
