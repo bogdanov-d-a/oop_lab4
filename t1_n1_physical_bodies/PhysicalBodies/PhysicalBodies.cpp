@@ -90,7 +90,7 @@ bool HandleArguments(string const& params, int paramCount, vector<int> &paramVec
 	return true;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+vector<shared_ptr<CBody>> PromptBodies(istream &strm)
 {
 	vector<shared_ptr<CBody>> bodies;
 	StringToHandlerMap handlers;
@@ -156,5 +156,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	};
 
 	PromptBodies(cin, handlers);
+	return bodies;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
 	return 0;
 }
