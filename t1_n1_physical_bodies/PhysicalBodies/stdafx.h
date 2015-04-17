@@ -15,3 +15,7 @@
 // TODO: reference additional headers your program requires here
 
 #include "PhysicalBodiesHeader.h"
+#include <iostream>
+#include <functional>
+#include <map>
+#include <algorithm>
