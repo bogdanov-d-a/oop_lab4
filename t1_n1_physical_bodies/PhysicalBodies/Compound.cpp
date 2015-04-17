@@ -52,13 +52,12 @@ string CCompound::ToString() const
 {
 	string result(
 		CBody::ToString() +
-		", body amount = " + to_string(m_bodies.size()) +
-		"\n"
+		", body amount = " + to_string(m_bodies.size())
 	);
 
 	for (auto body : m_bodies)
 	{
-		result += (body->ToString() + "\n");
+		result += ("\n" + body->ToString());
 	}
 
 	return result;

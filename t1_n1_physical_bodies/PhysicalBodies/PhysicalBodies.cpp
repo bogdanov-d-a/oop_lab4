@@ -90,6 +90,11 @@ bool HandleArguments(string const& params, int paramCount, vector<int> &paramVec
 	return true;
 }
 
+double GetUnderwaterWeightCoefficient(CBody const& body)
+{
+	return ((body.GetDensity() - 1000) * body.GetVolume());
+}
+
 vector<shared_ptr<CBody>> PromptBodies(istream &strm)
 {
 	vector<shared_ptr<CBody>> bodies;
@@ -161,5 +166,28 @@ vector<shared_ptr<CBody>> PromptBodies(istream &strm)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	const vector<shared_ptr<CBody>> bodies = PromptBodies(cin);
+
+	if (!bodies.empty())
+	{
+		auto maxMassElem = *max_element(bodies.cbegin(), bodies.cend(),
+			[](shared_ptr<CBody> const& a, shared_ptr<CBody> const& b)
+		{
+			return (a->GetMass() < b->GetMass());
+		});
+		cout << "Body with maximal mass\n" << maxMassElem->ToString() << "\n";
+
+		auto minWeightUnderwaterElem = *min_element(bodies.cbegin(), bodies.cend(),
+			[](shared_ptr<CBody> const& a, shared_ptr<CBody> const& b)
+		{
+			return (GetUnderwaterWeightCoefficient(*a) < GetUnderwaterWeightCoefficient(*b));
+		});
+		cout << "Body with minimal underwater weight\n" << minWeightUnderwaterElem->ToString() << "\n";
+	}
+	else
+	{
+		cout << "Can't get results with no bodies\n";
+	}
+
 	return 0;
 }
