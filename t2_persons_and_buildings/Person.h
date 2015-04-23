@@ -5,7 +5,7 @@ class CPerson
 public:
 	enum class Gender { MALE, FEMALE };
 
-	CPerson(Gender gender, unsigned age, std::string name, unsigned height, unsigned weight);
+	CPerson(Gender gender, unsigned age, std::string const& name, unsigned height, unsigned weight);
 	virtual ~CPerson();
 
 	Gender GetGender() const;

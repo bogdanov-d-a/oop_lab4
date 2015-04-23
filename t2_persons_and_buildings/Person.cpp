@@ -4,7 +4,7 @@
 
 using namespace std;
 
-CPerson::CPerson(Gender gender, unsigned age, string name, unsigned height, unsigned weight)
+CPerson::CPerson(Gender gender, unsigned age, string const& name, unsigned height, unsigned weight)
 	:m_gender(gender)
 	,m_age(age)
 	,m_name(name)
