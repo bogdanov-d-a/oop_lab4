@@ -3,7 +3,7 @@
 
 using namespace std;
 
-size_t RawData::ReadSizeUntilStopChar(istream &in)
+string ReadStrUntilStopChar(istream &in)
 {
 	string result;
 
@@ -12,17 +12,22 @@ size_t RawData::ReadSizeUntilStopChar(istream &in)
 	{
 		result.push_back(tmpChar);
 
-		if (tmpChar == STOP_CHAR)
+		if (tmpChar == RawData::STOP_CHAR)
 		{
 			break;
 		}
 	}
 
-	if (result.back() != STOP_CHAR)
+	if (result.back() != RawData::STOP_CHAR)
 		throw runtime_error("No stop character found");
 
 	result.pop_back();
-	return stoul(result);
+	return result;
+}
+
+size_t RawData::ReadSizeUntilStopChar(istream &in)
+{
+	return stoul(ReadStrUntilStopChar(in));
 }
 
 void RawData::WriteString(string const& str, ostream &out)
