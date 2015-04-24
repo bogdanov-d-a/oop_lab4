@@ -8,6 +8,9 @@ class CCompany:
 public:
 	CCompany(std::string const& name, std::string const& webSite);
 
+	CCompany(std::istream &in);
+	void WriteRawData(std::ostream &out) const;
+
 	std::string GetWebSite() const;
 	void SetWebSite(std::string const& newWebSite);
 

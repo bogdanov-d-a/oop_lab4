@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Company.h"
+#include "RawDataUtils.h"
 
 using namespace std;
 
@@ -7,6 +8,17 @@ CCompany::CCompany(string const& name, string const& webSite)
 	:CUniversity(name)
 	,m_webSite(webSite)
 {}
+
+CCompany::CCompany(istream &in)
+	:CUniversity(RawData::ReadString(in))
+	,m_webSite(RawData::ReadString(in))
+{}
+
+void CCompany::WriteRawData(ostream &out) const
+{
+	RawData::WriteString(GetName(), out);
+	RawData::WriteString(GetWebSite(), out);
+}
 
 string CCompany::GetWebSite() const
 {
