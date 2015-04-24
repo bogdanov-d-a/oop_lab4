@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Person.h"
 #include "Utils.h"
+#include "RawDataUtils.h"
 
 using namespace std;
 
@@ -14,6 +15,23 @@ CPerson::CPerson(Gender gender, unsigned age, string const& name, unsigned heigh
 
 CPerson::~CPerson()
 {}
+
+CPerson::CPerson(istream &in)
+	:m_gender(CHAR_TO_GENDER.at(in.get()))
+	,m_age(RawData::ReadUnsigned(in))
+	,m_name(RawData::ReadString(in))
+	,m_height(RawData::ReadUnsigned(in))
+	,m_weight(RawData::ReadUnsigned(in))
+{}
+
+void CPerson::WriteRawData(ostream &out) const
+{
+	out.put(GENDER_TO_CHAR.at(m_gender));
+	RawData::WriteUnsigned(m_age, out);
+	RawData::WriteString(m_name, out);
+	RawData::WriteUnsigned(m_height, out);
+	RawData::WriteUnsigned(m_weight, out);
+}
 
 CPerson::Gender CPerson::GetGender() const
 {
@@ -59,3 +77,13 @@ void CPerson::SetWeight(unsigned newWeight)
 {
 	m_weight = newWeight;
 }
+
+const map<CPerson::Gender, char> CPerson::GENDER_TO_CHAR = {
+	{ Gender::MALE, 'M' },
+	{ Gender::FEMALE, 'F' }
+};
+
+const map<char, CPerson::Gender> CPerson::CHAR_TO_GENDER = {
+	{ 'M', Gender::MALE },
+	{ 'F', Gender::FEMALE }
+};

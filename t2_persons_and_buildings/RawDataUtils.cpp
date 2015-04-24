@@ -44,3 +44,14 @@ string RawData::ReadString(istream &in)
 	in.read(result.data(), strLen);
 	return string(result.data());
 }
+
+void RawData::WriteUnsigned(unsigned u, std::ostream &out)
+{
+	out << u;
+	out.put(STOP_CHAR);
+}
+
+unsigned RawData::ReadUnsigned(std::istream &in)
+{
+	return stoul(ReadStrUntilStopChar(in));
+}

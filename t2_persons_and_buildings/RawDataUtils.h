@@ -7,4 +7,7 @@ namespace RawData
 
 	void WriteString(std::string const& str, std::ostream &out);
 	std::string ReadString(std::istream &in);
+
+	void WriteUnsigned(unsigned u, std::ostream &out);
+	unsigned ReadUnsigned(std::istream &in);
 }
