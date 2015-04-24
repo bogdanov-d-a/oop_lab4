@@ -10,6 +10,11 @@ public:
 	CStudent(Gender gender, unsigned age, std::string const& name, unsigned height,
 		unsigned weight, unsigned grade, CUniversity const* university);
 
+	CStudent(std::istream &in,
+		std::function<CUniversity const*(std::string const& name)> getUniversityByName);
+
+	void WriteRawData(std::ostream &out) const override;
+
 	unsigned GetGrade() const;
 	CUniversity const* GetUniversity() const;
 

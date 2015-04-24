@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Student.h"
 #include "Utils.h"
+#include "RawDataUtils.h"
 
 using namespace std;
 
@@ -11,6 +12,20 @@ CStudent::CStudent(Gender gender, unsigned age, string const& name, unsigned hei
 	,m_university(university)
 {
 	ThrowIfGradeIsIncorrect(grade);
+}
+
+CStudent::CStudent(istream &in,
+	function<CUniversity const*(string const& name)> getUniversityByName)
+	:CPerson(in)
+	,m_grade(RawData::ReadUnsigned(in))
+	,m_university(getUniversityByName(RawData::ReadString(in)))
+{}
+
+void CStudent::WriteRawData(std::ostream &out) const
+{
+	CPerson::WriteRawData(out);
+	RawData::WriteUnsigned(m_grade, out);
+	RawData::WriteString(m_university->GetName(), out);
 }
 
 unsigned CStudent::GetGrade() const
