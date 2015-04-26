@@ -5,18 +5,18 @@
 using namespace std;
 
 CCompany::CCompany(string const& name, string const& webSite)
-	:CUniversity(name)
+	:CBuilding(name)
 	,m_webSite(webSite)
 {}
 
 CCompany::CCompany(istream &in)
-	:CUniversity(in)
+	:CBuilding(in)
 	,m_webSite(RawData::ReadString(in))
 {}
 
 void CCompany::WriteRawData(ostream &out) const
 {
-	CUniversity::WriteRawData(out);
+	CBuilding::WriteRawData(out);
 	RawData::WriteString(m_webSite, out);
 }
 
@@ -28,7 +28,7 @@ string CCompany::GetWebSite() const
 string CCompany::ToString() const
 {
 	return (
-		CUniversity::ToString() +
+		CBuilding::ToString() +
 		", web site = " + m_webSite
 	);
 }

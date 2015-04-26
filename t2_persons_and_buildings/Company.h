@@ -1,9 +1,9 @@
 #pragma once
 
-#include "University.h"
+#include "Building.h"
 
 class CCompany:
-	public CUniversity
+	public CBuilding
 {
 public:
 	CCompany(std::string const& name, std::string const& webSite);
