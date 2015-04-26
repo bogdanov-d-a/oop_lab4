@@ -12,6 +12,8 @@ public:
 	void WriteRawData(std::ostream &out) const override;
 
 	std::string GetWebSite() const;
+	std::string ToString() const override;
+
 	void SetWebSite(std::string const& newWebSite);
 
 private:

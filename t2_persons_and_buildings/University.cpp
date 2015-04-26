@@ -25,6 +25,11 @@ string CUniversity::GetName() const
 	return m_name;
 }
 
+string CUniversity::ToString() const
+{
+	return ("Name = " + m_name);
+}
+
 void CUniversity::SetName(string const& newName)
 {
 	m_name = newName;

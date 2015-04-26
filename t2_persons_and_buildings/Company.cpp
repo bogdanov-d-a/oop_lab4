@@ -25,6 +25,14 @@ string CCompany::GetWebSite() const
 	return m_webSite;
 }
 
+string CCompany::ToString() const
+{
+	return (
+		CUniversity::ToString() +
+		", web site = " + m_webSite
+	);
+}
+
 void CCompany::SetWebSite(string const& newWebSite)
 {
 	m_webSite = newWebSite;
