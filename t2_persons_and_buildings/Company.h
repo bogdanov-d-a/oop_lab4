@@ -13,6 +13,7 @@ public:
 
 	std::string GetWebSite() const;
 	std::string ToString() const override;
+	Type GetType() const override;
 
 	void SetWebSite(std::string const& newWebSite);
 

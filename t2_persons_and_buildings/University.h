@@ -7,4 +7,5 @@ class CUniversity:
 {
 public:
 	CUniversity(std::string const& name);
+	Type GetType() const override;
 };

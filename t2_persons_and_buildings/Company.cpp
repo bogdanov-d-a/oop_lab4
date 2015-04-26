@@ -33,6 +33,11 @@ string CCompany::ToString() const
 	);
 }
 
+CCompany::Type CCompany::GetType() const
+{
+	return Type::COMPANY;
+}
+
 void CCompany::SetWebSite(string const& newWebSite)
 {
 	m_webSite = newWebSite;
