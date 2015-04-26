@@ -9,7 +9,7 @@ public:
 	CCompany(std::string const& name, std::string const& webSite);
 
 	CCompany(std::istream &in);
-	void WriteRawData(std::ostream &out) const;
+	void WriteRawData(std::ostream &out) const override;
 
 	std::string GetWebSite() const;
 	void SetWebSite(std::string const& newWebSite);

@@ -10,14 +10,14 @@ CCompany::CCompany(string const& name, string const& webSite)
 {}
 
 CCompany::CCompany(istream &in)
-	:CUniversity(RawData::ReadString(in))
+	:CUniversity(in)
 	,m_webSite(RawData::ReadString(in))
 {}
 
 void CCompany::WriteRawData(ostream &out) const
 {
-	RawData::WriteString(GetName(), out);
-	RawData::WriteString(GetWebSite(), out);
+	CUniversity::WriteRawData(out);
+	RawData::WriteString(m_webSite, out);
 }
 
 string CCompany::GetWebSite() const

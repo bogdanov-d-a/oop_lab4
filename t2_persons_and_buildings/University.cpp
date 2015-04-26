@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "University.h"
+#include "RawDataUtils.h"
 
 using namespace std;
 
@@ -9,6 +10,15 @@ CUniversity::CUniversity(string const& name)
 
 CUniversity::~CUniversity()
 {}
+
+CUniversity::CUniversity(istream &in)
+	:m_name(RawData::ReadString(in))
+{}
+
+void CUniversity::WriteRawData(ostream &out) const
+{
+	RawData::WriteString(m_name, out);
+}
 
 string CUniversity::GetName() const
 {
