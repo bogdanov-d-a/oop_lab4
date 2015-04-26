@@ -7,6 +7,10 @@ CUniversity::CUniversity(string const& name)
 	:CBuilding(name)
 {}
 
+CUniversity::CUniversity(std::istream &in)
+	:CBuilding(in)
+{}
+
 CUniversity::Type CUniversity::GetType() const
 {
 	return Type::UNIVERSITY;

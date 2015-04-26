@@ -9,6 +9,7 @@ public:
 	virtual ~CBuilding();
 
 	CBuilding(std::istream &in);
+	static std::unique_ptr<CBuilding> CreateFromRawData(std::istream &in);
 	virtual void WriteRawData(std::ostream &out) const;
 
 	std::string GetName() const;
@@ -18,5 +19,8 @@ public:
 	void SetName(std::string const& newName);
 
 private:
+	static const std::map<Type, char> TYPE_TO_CHAR;
+	static const std::map<char, Type> CHAR_TO_TYPE;
+
 	std::string m_name;
 };
