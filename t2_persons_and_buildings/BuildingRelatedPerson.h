@@ -16,6 +16,7 @@ public:
 	virtual ~CBuildingRelatedPerson();
 
 	CBuildingRelatedPerson(std::istream &in, GetBuildingFunction getBuilding);
+	static std::unique_ptr<CBuildingRelatedPerson> CreateFromRawData(std::istream &in, GetBuildingFunction getBuilding);
 	virtual void WriteRawData(std::ostream &out) const override;
 
 	std::shared_ptr<CBuilding> GetBuilding() const;
@@ -24,5 +25,8 @@ public:
 	void SetBuilding(std::shared_ptr<CBuilding> const& newBuilding);
 
 private:
+	static const std::map<Type, char> TYPE_TO_CHAR;
+	static const std::map<char, Type> CHAR_TO_TYPE;
+
 	std::weak_ptr<CBuilding> m_building;
 };
