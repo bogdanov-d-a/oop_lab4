@@ -1,27 +1,22 @@
 #pragma once
 
-#include "Person.h"
-#include "Company.h"
+#include "BuildingRelatedPerson.h"
 
 class CWorker:
-	public CPerson
+	public CBuildingRelatedPerson
 {
 public:
 	CWorker(Gender gender, unsigned age, std::string const& name, unsigned height,
-		unsigned weight, CCompany const* company, std::string const& specialty);
+		unsigned weight, std::shared_ptr<CBuilding> const& building, std::string const& specialty);
 
-	CWorker(std::istream &in,
-		std::function<CCompany const*(std::string const& name)> getCompanyByName);
-
+	CWorker(std::istream &in, GetBuildingFunction getBuilding);
 	void WriteRawData(std::ostream &out) const override;
 
-	CCompany const* GetCompany() const;
 	std::string GetSpecialty() const;
+	Type GetType() const override;
 
-	void SetCompany(CCompany const* newCompany);
 	void SetSpecialty(std::string const& newSpecialty);
 
 private:
-	CCompany const* m_company;
 	std::string m_specialty;
 };

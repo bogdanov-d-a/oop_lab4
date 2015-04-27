@@ -1,29 +1,23 @@
 #pragma once
 
-#include "Person.h"
-#include "University.h"
+#include "BuildingRelatedPerson.h"
 
 class CStudent:
-	public CPerson
+	public CBuildingRelatedPerson
 {
 public:
 	CStudent(Gender gender, unsigned age, std::string const& name, unsigned height,
-		unsigned weight, unsigned grade, CUniversity const* university);
+		unsigned weight, std::shared_ptr<CBuilding> const& building, unsigned grade);
 
-	CStudent(std::istream &in,
-		std::function<CUniversity const*(std::string const& name)> getUniversityByName);
-
+	CStudent(std::istream &in, GetBuildingFunction getBuilding);
 	void WriteRawData(std::ostream &out) const override;
 
 	unsigned GetGrade() const;
-	CUniversity const* GetUniversity() const;
+	Type GetType() const override;
 
 	bool SetGrade(unsigned newGrade);
-	void SetUniversity(CUniversity const* newUniversity);
 
 private:
 	unsigned m_grade;
-	CUniversity const* m_university;
-
 	static void ThrowIfGradeIsIncorrect(unsigned grade);
 };

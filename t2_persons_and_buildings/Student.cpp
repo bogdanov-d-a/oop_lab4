@@ -5,27 +5,23 @@
 
 using namespace std;
 
-CStudent::CStudent(Gender gender, unsigned age, string const& name, unsigned height,
-	unsigned weight, unsigned grade, CUniversity const* university)
-	:CPerson(gender, age, name, height, weight)
+CStudent::CStudent(Gender gender, unsigned age, std::string const& name, unsigned height,
+	unsigned weight, std::shared_ptr<CBuilding> const& building, unsigned grade)
+	:CBuildingRelatedPerson(gender, age, name, height, weight, building)
 	,m_grade(grade)
-	,m_university(university)
 {
 	ThrowIfGradeIsIncorrect(grade);
 }
 
-CStudent::CStudent(istream &in,
-	function<CUniversity const*(string const& name)> getUniversityByName)
-	:CPerson(in)
+CStudent::CStudent(std::istream &in, GetBuildingFunction getBuilding)
+	:CBuildingRelatedPerson(in, getBuilding)
 	,m_grade(RawData::ReadUnsigned(in))
-	,m_university(getUniversityByName(RawData::ReadString(in)))
 {}
 
 void CStudent::WriteRawData(std::ostream &out) const
 {
-	CPerson::WriteRawData(out);
+	CBuildingRelatedPerson::WriteRawData(out);
 	RawData::WriteUnsigned(m_grade, out);
-	RawData::WriteString(m_university->GetName(), out);
 }
 
 unsigned CStudent::GetGrade() const
@@ -33,20 +29,15 @@ unsigned CStudent::GetGrade() const
 	return m_grade;
 }
 
-CUniversity const* CStudent::GetUniversity() const
+CStudent::Type CStudent::GetType() const
 {
-	return m_university;
+	return Type::STUDENT;
 }
 
 bool CStudent::SetGrade(unsigned newGrade)
 {
 	ThrowIfGradeIsIncorrect(newGrade);
 	return AssignIfGreater(m_grade, newGrade);
-}
-
-void CStudent::SetUniversity(CUniversity const* newUniversity)
-{
-	m_university = newUniversity;
 }
 
 void CStudent::ThrowIfGradeIsIncorrect(unsigned grade)

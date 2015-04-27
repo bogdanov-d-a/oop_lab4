@@ -14,8 +14,7 @@ CBuildingRelatedPerson::CBuildingRelatedPerson(Gender gender, unsigned age,
 CBuildingRelatedPerson::~CBuildingRelatedPerson()
 {}
 
-CBuildingRelatedPerson::CBuildingRelatedPerson(istream &in,
-	function<shared_ptr<CBuilding>(string const& name, CBuilding::Type type)> getBuilding)
+CBuildingRelatedPerson::CBuildingRelatedPerson(istream &in, GetBuildingFunction getBuilding)
 	:CPerson(in)
 {
 	const CBuilding::Type type = CBuilding::CHAR_TO_TYPE.at(GetCharFromStream(in));
