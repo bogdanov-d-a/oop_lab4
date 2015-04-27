@@ -14,6 +14,8 @@ public:
 	void RemoveCompany();
 	void PrintUniversityStudentList() const;
 	void PrintCompanyWorkerList() const;
+	void AddUniversity();
+	void AddCompany();
 
 private:
 	typedef std::list<std::shared_ptr<CBuildingRelatedPerson>> Persons;

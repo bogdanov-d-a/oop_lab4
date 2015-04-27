@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "PersonsAndBuildings.h"
 #include "Utils.h"
+#include "University.h"
+#include "Company.h"
 
 using namespace std;
 
@@ -42,6 +44,38 @@ void CPersonsAndBuildings::PrintUniversityStudentList() const
 void CPersonsAndBuildings::PrintCompanyWorkerList() const
 {
 	PrintBuildingPersons(CBuilding::Type::COMPANY);
+}
+
+void CPersonsAndBuildings::AddUniversity()
+{
+	cout << "Enter name: ";
+	string name;
+	getline(cin, name);
+
+	if (FindBuildingByName(CBuilding::Type::UNIVERSITY, name) != m_buildings.end())
+	{
+		ThrowAlreadyExistsException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(CBuilding::Type::UNIVERSITY)));
+	}
+
+	m_buildings.push_back(shared_ptr<CBuilding>(new CUniversity(name)));
+}
+
+void CPersonsAndBuildings::AddCompany()
+{
+	cout << "Enter name: ";
+	string name;
+	getline(cin, name);
+
+	if (FindBuildingByName(CBuilding::Type::COMPANY, name) != m_buildings.end())
+	{
+		ThrowAlreadyExistsException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(CBuilding::Type::COMPANY)));
+	}
+
+	cout << "Enter web site: ";
+	string webSite;
+	getline(cin, webSite);
+
+	m_buildings.push_back(shared_ptr<CBuilding>(new CCompany(name, webSite)));
 }
 
 CPersonsAndBuildings::Buildings::const_iterator
