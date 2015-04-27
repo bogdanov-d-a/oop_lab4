@@ -17,7 +17,7 @@ CPerson::~CPerson()
 {}
 
 CPerson::CPerson(istream &in)
-	:m_gender(CHAR_TO_GENDER.at(in.get()))
+	:m_gender(CHAR_TO_GENDER.at(GetCharFromStream(in)))
 	,m_age(RawData::ReadUnsigned(in))
 	,m_name(RawData::ReadString(in))
 	,m_height(RawData::ReadUnsigned(in))

@@ -3,6 +3,7 @@
 #include "RawDataUtils.h"
 #include "University.h"
 #include "Company.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ CBuilding::CBuilding(istream &in)
 
 unique_ptr<CBuilding> CBuilding::CreateFromRawData(std::istream &in)
 {
-	const Type type = CHAR_TO_TYPE.at(in.get());
+	const Type type = CHAR_TO_TYPE.at(GetCharFromStream(in));
 
 	switch (type)
 	{

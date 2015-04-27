@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "BuildingRelatedPerson.h"
 #include "RawDataUtils.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ CBuildingRelatedPerson::CBuildingRelatedPerson(istream &in,
 	function<shared_ptr<CBuilding>(string const& name, CBuilding::Type type)> getBuilding)
 	:CPerson(in)
 {
-	const CBuilding::Type type = CBuilding::CHAR_TO_TYPE.at(in.get());
+	const CBuilding::Type type = CBuilding::CHAR_TO_TYPE.at(GetCharFromStream(in));
 	const string name = RawData::ReadString(in);
 	m_building = getBuilding(name, type);
 }
