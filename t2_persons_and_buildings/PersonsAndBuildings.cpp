@@ -4,6 +4,7 @@
 #include "University.h"
 #include "Company.h"
 #include "Student.h"
+#include "Worker.h"
 
 using namespace std;
 
@@ -163,6 +164,87 @@ void CPersonsAndBuildings::EditStudent()
 		unsigned grade;
 		cin >> grade;
 		student->SetGrade(grade);
+	}
+
+	default:
+		throw runtime_error("Wrong action");
+	}
+}
+
+void CPersonsAndBuildings::EditWorker()
+{
+	cout << "Enter ID: ";
+	size_t id;
+	cin >> id;
+
+	CWorker *worker = dynamic_cast<CWorker*>(GetPersonByID(CBuildingRelatedPerson::Type::WORKER, id)->get());
+
+	cout << "Choose field to edit: " << endl;
+	cout << "1. Age" << endl;
+	cout << "2. Name" << endl;
+	cout << "3. Height" << endl;
+	cout << "4. Weight" << endl;
+	cout << "5. Company" << endl;
+	cout << "6. Specialty" << endl;
+
+	size_t action;
+	cin >> action;
+
+	switch (action)
+	{
+	case 1:
+	{
+		cout << "Enter new age: ";
+		unsigned age;
+		cin >> age;
+		worker->SetAge(age);
+	}
+
+	case 2:
+	{
+		cout << "Enter new name: ";
+		string name;
+		getline(cin, name);
+		worker->SetName(name);
+	}
+
+	case 3:
+	{
+		cout << "Enter new height: ";
+		unsigned height;
+		cin >> height;
+		worker->SetHeight(height);
+	}
+
+	case 4:
+	{
+		cout << "Enter new weight: ";
+		unsigned weight;
+		cin >> weight;
+		worker->SetWeight(weight);
+	}
+
+	case 5:
+	{
+		cout << "Enter new company name: ";
+		string name;
+		getline(cin, name);
+
+		auto target = FindBuildingByName(CBuilding::Type::COMPANY, name);
+		if (target == m_buildings.end())
+		{
+			ThrowNotFoundException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(CBuilding::Type::COMPANY)));
+		}
+
+		worker->SetBuilding(*target);
+	}
+
+	case 6:
+	{
+		cout << "Enter new specialty: ";
+		string specialty;
+		cin >> specialty;
+		worker->SetSpecialty(specialty);
 	}
 
 	default:

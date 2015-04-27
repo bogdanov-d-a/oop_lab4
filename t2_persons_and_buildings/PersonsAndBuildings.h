@@ -19,6 +19,7 @@ public:
 	void PrintStudentList() const;
 	void PrintWorkerList() const;
 	void EditStudent();
+	void EditWorker();
 
 private:
 	typedef std::list<std::shared_ptr<CBuildingRelatedPerson>> Persons;
