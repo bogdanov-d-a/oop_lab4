@@ -224,11 +224,14 @@ void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const&
 
 void CPersonsAndBuildings::PrintPersonList(CBuildingRelatedPerson::Type type) const
 {
+	size_t id = 0;
+
 	for (auto person : m_persons)
 	{
 		if (person->GetType() == type)
 		{
-			cout << person->ToString();
+			cout << "ID = " << id << ", " << person->ToString() << endl;
+			++id;
 		}
 	}
 }
