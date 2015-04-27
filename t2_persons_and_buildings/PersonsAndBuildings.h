@@ -16,6 +16,8 @@ public:
 	void PrintCompanyWorkerList() const;
 	void AddUniversity();
 	void AddCompany();
+	void PrintStudentList() const;
+	void PrintWorkerList() const;
 
 private:
 	typedef std::list<std::shared_ptr<CBuildingRelatedPerson>> Persons;
@@ -38,4 +40,6 @@ private:
 
 	void FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
 		std::function<void(Persons::iterator)> cb);
+
+	void PrintPersonList(CBuildingRelatedPerson::Type type) const;
 };

@@ -78,6 +78,16 @@ void CPersonsAndBuildings::AddCompany()
 	m_buildings.push_back(shared_ptr<CBuilding>(new CCompany(name, webSite)));
 }
 
+void CPersonsAndBuildings::PrintStudentList() const
+{
+	PrintPersonList(CBuildingRelatedPerson::Type::STUDENT);
+}
+
+void CPersonsAndBuildings::PrintWorkerList() const
+{
+	PrintPersonList(CBuildingRelatedPerson::Type::WORKER);
+}
+
 CPersonsAndBuildings::Buildings::const_iterator
 CPersonsAndBuildings::FindBuildingByName(CBuilding::Type type, string name) const
 {
@@ -208,6 +218,17 @@ void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const&
 		if ((*it)->GetBuilding().get() == building.get())
 		{
 			cb(it);
+		}
+	}
+}
+
+void CPersonsAndBuildings::PrintPersonList(CBuildingRelatedPerson::Type type) const
+{
+	for (auto person : m_persons)
+	{
+		if (person->GetType() == type)
+		{
+			cout << person->ToString();
 		}
 	}
 }
