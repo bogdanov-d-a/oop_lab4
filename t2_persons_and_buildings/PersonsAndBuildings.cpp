@@ -252,6 +252,16 @@ void CPersonsAndBuildings::EditWorker()
 	}
 }
 
+void CPersonsAndBuildings::RemoveStudent()
+{
+	RemovePerson(CBuildingRelatedPerson::Type::STUDENT);
+}
+
+void CPersonsAndBuildings::RemoveWorker()
+{
+	RemovePerson(CBuildingRelatedPerson::Type::WORKER);
+}
+
 CPersonsAndBuildings::Buildings::const_iterator
 CPersonsAndBuildings::FindBuildingByName(CBuilding::Type type, string name) const
 {
@@ -419,4 +429,14 @@ CPersonsAndBuildings::GetPersonByID(CBuildingRelatedPerson::Type type, size_t id
 	}
 
 	throw runtime_error("Index is out of bounds");
+}
+
+void CPersonsAndBuildings::RemovePerson(CBuildingRelatedPerson::Type type)
+{
+	cout << "Enter ID: ";
+	size_t id;
+	cin >> id;
+
+	auto person = GetPersonByID(type, id);
+	m_persons.erase(person);
 }
