@@ -24,6 +24,26 @@ void CPersonsAndBuildings::RenameCompany()
 	RenameBuilding(CBuilding::Type::COMPANY);
 }
 
+void CPersonsAndBuildings::RemoveUniversity()
+{
+	RemoveBuilding(CBuilding::Type::UNIVERSITY);
+}
+
+void CPersonsAndBuildings::RemoveCompany()
+{
+	RemoveBuilding(CBuilding::Type::COMPANY);
+}
+
+void CPersonsAndBuildings::PrintUniversityStudentList() const
+{
+	PrintBuildingPersons(CBuilding::Type::UNIVERSITY);
+}
+
+void CPersonsAndBuildings::PrintCompanyWorkerList() const
+{
+	PrintBuildingPersons(CBuilding::Type::COMPANY);
+}
+
 CPersonsAndBuildings::Buildings::const_iterator
 CPersonsAndBuildings::FindBuildingByName(CBuilding::Type type, string name) const
 {
@@ -92,6 +112,38 @@ void CPersonsAndBuildings::RenameBuilding(CBuilding::Type type)
 	(*target)->SetName(newName);
 }
 
+void CPersonsAndBuildings::RemoveBuilding(CBuilding::Type type)
+{
+	cout << "Enter name: ";
+	string name;
+	getline(cin, name);
+
+	auto target = FindBuildingByName(type, name);
+	if (target == m_buildings.end())
+	{
+		ThrowNotFoundException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(type)));
+	}
+
+	FindBuildingPersons(*target, [this](Persons::iterator it){ m_persons.erase(it); });
+
+	m_buildings.erase(target);
+}
+
+void CPersonsAndBuildings::PrintBuildingPersons(CBuilding::Type type) const
+{
+	cout << "Enter name: ";
+	string name;
+	getline(cin, name);
+
+	auto target = FindBuildingByName(type, name);
+	if (target == m_buildings.end())
+	{
+		ThrowNotFoundException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(type)));
+	}
+
+	FindBuildingPersons(*target, [](Persons::const_iterator it){ cout << (*it)->ToString() << endl; });
+}
+
 void CPersonsAndBuildings::ThrowNotFoundException(std::string const& objName)
 {
 	throw runtime_error(objName + " is not found");
@@ -100,4 +152,28 @@ void CPersonsAndBuildings::ThrowNotFoundException(std::string const& objName)
 void CPersonsAndBuildings::ThrowAlreadyExistsException(std::string const& objName)
 {
 	throw runtime_error(objName + " already exists");
+}
+
+void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
+	std::function<void(Persons::const_iterator)> cb) const
+{
+	for (auto it = m_persons.cbegin(); it != m_persons.cend(); ++it)
+	{
+		if ((*it)->GetBuilding().get() == building.get())
+		{
+			cb(it);
+		}
+	}
+}
+
+void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
+	std::function<void(Persons::iterator)> cb)
+{
+	for (auto it = m_persons.begin(); it != m_persons.end(); ++it)
+	{
+		if ((*it)->GetBuilding().get() == building.get())
+		{
+			cb(it);
+		}
+	}
 }
