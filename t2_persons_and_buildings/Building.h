@@ -6,6 +6,7 @@ public:
 	enum class Type { UNIVERSITY, COMPANY };
 	static const std::map<Type, char> TYPE_TO_CHAR;
 	static const std::map<char, Type> CHAR_TO_TYPE;
+	static const std::map<Type, std::string> TYPE_TO_NAME;
 
 	CBuilding(std::string const& name);
 	virtual ~CBuilding();

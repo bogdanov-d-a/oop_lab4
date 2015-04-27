@@ -23,3 +23,15 @@ char GetCharFromStream(istream &in)
 	}
 	return c;
 }
+
+string MakeFirstLetterUppercase(string const& str)
+{
+	if (str.empty())
+	{
+		throw runtime_error("Nonempty string expected");
+	}
+
+	string result(str);
+	result[0] = toupper(result[0]);
+	return result;
+}

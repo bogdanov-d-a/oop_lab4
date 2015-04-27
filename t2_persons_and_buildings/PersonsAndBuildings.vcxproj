@@ -80,6 +80,7 @@
     <ClInclude Include="BuildingRelatedPerson.h" />
     <ClInclude Include="Company.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="PersonsAndBuildings.h" />
     <ClInclude Include="RawDataUtils.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Student.h" />
@@ -93,6 +94,7 @@
     <ClCompile Include="BuildingRelatedPerson.cpp" />
     <ClCompile Include="Company.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="PersonsAndBuildings.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RawDataUtils.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -63,3 +63,8 @@ const std::map<char, CBuilding::Type> CBuilding::CHAR_TO_TYPE = {
 	{ 'U', Type::UNIVERSITY },
 	{ 'C', Type::COMPANY }
 };
+
+const std::map<CBuilding::Type, std::string> CBuilding::TYPE_TO_NAME = {
+	{ Type::UNIVERSITY, "university" },
+	{ Type::COMPANY, "company" }
+};
