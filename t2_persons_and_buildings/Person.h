@@ -16,6 +16,7 @@ public:
 	std::string GetName() const;
 	unsigned GetHeight() const;
 	unsigned GetWeight() const;
+	virtual std::string ToString() const;
 
 	bool SetAge(unsigned newAge);
 	void SetName(std::string const& newName);
@@ -25,6 +26,7 @@ public:
 private:
 	static const std::map<Gender, char> GENDER_TO_CHAR;
 	static const std::map<char, Gender> CHAR_TO_GENDER;
+	static const std::map<Gender, std::string> GENDER_TO_NAME;
 
 	Gender m_gender;
 	unsigned m_age;

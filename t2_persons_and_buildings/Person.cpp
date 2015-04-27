@@ -58,6 +58,17 @@ unsigned CPerson::GetWeight() const
 	return m_weight;
 }
 
+string CPerson::ToString() const
+{
+	return (
+		"Gender = " + GENDER_TO_NAME.at(m_gender) +
+		", age = " + to_string(m_age) +
+		", name = " + m_name +
+		", height = " + to_string(m_height) +
+		", weight = " + to_string(m_weight)
+	);
+}
+
 bool CPerson::SetAge(unsigned newAge)
 {
 	return AssignIfGreater(m_age, newAge);
@@ -86,4 +97,9 @@ const map<CPerson::Gender, char> CPerson::GENDER_TO_CHAR = {
 const map<char, CPerson::Gender> CPerson::CHAR_TO_GENDER = {
 	{ 'M', Gender::MALE },
 	{ 'F', Gender::FEMALE }
+};
+
+const map<CPerson::Gender, string> CPerson::GENDER_TO_NAME = {
+	{ Gender::MALE, "male" },
+	{ Gender::FEMALE, "female" }
 };
