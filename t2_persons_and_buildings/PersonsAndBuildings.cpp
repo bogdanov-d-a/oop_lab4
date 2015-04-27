@@ -3,6 +3,7 @@
 #include "Utils.h"
 #include "University.h"
 #include "Company.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -86,6 +87,87 @@ void CPersonsAndBuildings::PrintStudentList() const
 void CPersonsAndBuildings::PrintWorkerList() const
 {
 	PrintPersonList(CBuildingRelatedPerson::Type::WORKER);
+}
+
+void CPersonsAndBuildings::EditStudent()
+{
+	cout << "Enter ID: ";
+	size_t id;
+	cin >> id;
+
+	CStudent *student = dynamic_cast<CStudent*>(GetPersonByID(CBuildingRelatedPerson::Type::STUDENT, id)->get());
+
+	cout << "Choose field to edit: " << endl;
+	cout << "1. Age" << endl;
+	cout << "2. Name" << endl;
+	cout << "3. Height" << endl;
+	cout << "4. Weight" << endl;
+	cout << "5. University" << endl;
+	cout << "6. Grade" << endl;
+
+	size_t action;
+	cin >> action;
+
+	switch (action)
+	{
+	case 1:
+	{
+		cout << "Enter new age: ";
+		unsigned age;
+		cin >> age;
+		student->SetAge(age);
+	}
+
+	case 2:
+	{
+		cout << "Enter new name: ";
+		string name;
+		getline(cin, name);
+		student->SetName(name);
+	}
+
+	case 3:
+	{
+		cout << "Enter new height: ";
+		unsigned height;
+		cin >> height;
+		student->SetHeight(height);
+	}
+
+	case 4:
+	{
+		cout << "Enter new weight: ";
+		unsigned weight;
+		cin >> weight;
+		student->SetWeight(weight);
+	}
+
+	case 5:
+	{
+		cout << "Enter new university name: ";
+		string name;
+		getline(cin, name);
+
+		auto target = FindBuildingByName(CBuilding::Type::UNIVERSITY, name);
+		if (target == m_buildings.end())
+		{
+			ThrowNotFoundException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(CBuilding::Type::UNIVERSITY)));
+		}
+
+		student->SetBuilding(*target);
+	}
+
+	case 6:
+	{
+		cout << "Enter new grade: ";
+		unsigned grade;
+		cin >> grade;
+		student->SetGrade(grade);
+	}
+
+	default:
+		throw runtime_error("Wrong action");
+	}
 }
 
 CPersonsAndBuildings::Buildings::const_iterator
@@ -234,4 +316,25 @@ void CPersonsAndBuildings::PrintPersonList(CBuildingRelatedPerson::Type type) co
 			++id;
 		}
 	}
+}
+
+CPersonsAndBuildings::Persons::iterator
+CPersonsAndBuildings::GetPersonByID(CBuildingRelatedPerson::Type type, size_t id)
+{
+	size_t curId = 0;
+
+	for (auto person = m_persons.begin(); person != m_persons.end(); ++person)
+	{
+		if ((*person)->GetType() == type)
+		{
+			if (id == curId)
+			{
+				return person;
+			}
+
+			++curId;
+		}
+	}
+
+	throw runtime_error("Index is out of bounds");
 }
