@@ -7,7 +7,7 @@ CUniversity::CUniversity(string const& name)
 	:CBuilding(name)
 {}
 
-CUniversity::CUniversity(std::istream &in)
+CUniversity::CUniversity(istream &in)
 	:CBuilding(in)
 {}
 

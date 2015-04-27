@@ -8,5 +8,6 @@ class CUniversity:
 public:
 	CUniversity(std::string const& name);
 	CUniversity(std::istream &in);
+
 	Type GetType() const override;
 };
