@@ -32,6 +32,6 @@ string MakeFirstLetterUppercase(string const& str)
 	}
 
 	string result(str);
-	result[0] = toupper(result[0]);
+	result[0] = static_cast<char>(toupper(result[0]));
 	return result;
 }
