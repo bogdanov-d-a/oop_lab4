@@ -29,6 +29,14 @@ unsigned CStudent::GetGrade() const
 	return m_grade;
 }
 
+string CStudent::ToString() const
+{
+	return (
+		CBuildingRelatedPerson::ToString() +
+		", grade = " + to_string(m_grade)
+	);
+}
+
 CStudent::Type CStudent::GetType() const
 {
 	return Type::STUDENT;

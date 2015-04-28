@@ -20,6 +20,7 @@ public:
 	virtual void WriteRawData(std::ostream &out) const override;
 
 	std::shared_ptr<CBuilding> GetBuilding() const;
+	virtual std::string ToString() const override;
 	virtual Type GetType() const = 0;
 
 	void SetBuilding(std::shared_ptr<CBuilding> const& newBuilding);

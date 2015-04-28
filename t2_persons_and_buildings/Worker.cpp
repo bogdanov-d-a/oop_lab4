@@ -26,6 +26,14 @@ string CWorker::GetSpecialty() const
 	return m_specialty;
 }
 
+string CWorker::ToString() const
+{
+	return (
+		CBuildingRelatedPerson::ToString() +
+		", specialty = " + m_specialty
+	);
+}
+
 CWorker::Type CWorker::GetType() const
 {
 	return Type::WORKER;

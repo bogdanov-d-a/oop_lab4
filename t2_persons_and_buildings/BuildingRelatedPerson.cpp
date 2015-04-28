@@ -60,6 +60,14 @@ shared_ptr<CBuilding> CBuildingRelatedPerson::GetBuilding() const
 	}
 }
 
+string CBuildingRelatedPerson::ToString() const
+{
+	return (
+		CPerson::ToString() +
+		", building name = " + GetBuilding()->GetName()
+	);
+}
+
 void CBuildingRelatedPerson::SetBuilding(shared_ptr<CBuilding> const& newBuilding)
 {
 	m_building = newBuilding;

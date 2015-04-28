@@ -13,6 +13,7 @@ public:
 	void WriteRawData(std::ostream &out) const override;
 
 	std::string GetSpecialty() const;
+	std::string ToString() const override;
 	Type GetType() const override;
 
 	void SetSpecialty(std::string const& newSpecialty);

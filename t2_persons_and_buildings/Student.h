@@ -13,6 +13,7 @@ public:
 	void WriteRawData(std::ostream &out) const override;
 
 	unsigned GetGrade() const;
+	std::string ToString() const override;
 	Type GetType() const override;
 
 	bool SetGrade(unsigned newGrade);
