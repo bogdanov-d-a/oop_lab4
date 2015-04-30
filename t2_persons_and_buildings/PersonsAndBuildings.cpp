@@ -5,8 +5,68 @@
 #include "Company.h"
 #include "Student.h"
 #include "Worker.h"
+#include "RawDataUtils.h"
 
 using namespace std;
+
+CPersonsAndBuildings::CPersonsAndBuildings(const char fileName[])
+	:m_changed(false)
+	,m_fileName(fileName)
+{
+	ifstream in(fileName);
+	
+	if (in.is_open())
+	{
+		size_t buildingCount = RawData::ReadSizeUntilStopChar(in);
+		for (size_t curBuilding = 0; curBuilding < buildingCount; ++curBuilding)
+		{
+			m_buildings.push_back(CBuilding::CreateFromRawData(in));
+		}
+
+		size_t personCount = RawData::ReadSizeUntilStopChar(in);
+		for (size_t curPerson = 0; curPerson < personCount; ++curPerson)
+		{
+			m_persons.push_back(
+				CBuildingRelatedPerson::CreateFromRawData(in,
+				[this](string const& name, CBuilding::Type type){ return *(this->FindBuildingByName(type, name)); })
+			);
+		}
+	}
+	else
+	{
+		cout << "Database file didn't open, it will be created on write attempt" << endl;
+	}
+}
+
+void CPersonsAndBuildings::WriteUnsavedData() const
+{
+	if (m_changed)
+	{
+		cout << "Database has been modified. Do you want to save changes? ";
+
+		string answer;
+		getline(cin, answer);
+
+		if (answer == "y" || answer == "Y")
+		{
+			ofstream out(m_fileName);
+
+			out << m_buildings.size();
+			out.put(RawData::STOP_CHAR);
+			for (auto building : m_buildings)
+			{
+				building->WriteRawData(out);
+			}
+
+			out << m_persons.size();
+			out.put(RawData::STOP_CHAR);
+			for (auto person : m_persons)
+			{
+				person->WriteRawData(out);
+			}
+		}
+	}
+}
 
 void CPersonsAndBuildings::PrintUniversityList() const
 {
@@ -60,6 +120,7 @@ void CPersonsAndBuildings::AddUniversity()
 	}
 
 	m_buildings.push_back(shared_ptr<CBuilding>(new CUniversity(name)));
+	m_changed = true;
 }
 
 void CPersonsAndBuildings::AddCompany()
@@ -78,6 +139,7 @@ void CPersonsAndBuildings::AddCompany()
 	getline(cin, webSite);
 
 	m_buildings.push_back(shared_ptr<CBuilding>(new CCompany(name, webSite)));
+	m_changed = true;
 }
 
 void CPersonsAndBuildings::PrintStudentList() const
@@ -92,6 +154,8 @@ void CPersonsAndBuildings::PrintWorkerList() const
 
 void CPersonsAndBuildings::EditStudent()
 {
+	m_changed = true;
+
 	cout << "Enter ID: ";
 	size_t id;
 	cin >> id;
@@ -173,6 +237,8 @@ void CPersonsAndBuildings::EditStudent()
 
 void CPersonsAndBuildings::EditWorker()
 {
+	m_changed = true;
+
 	cout << "Enter ID: ";
 	size_t id;
 	cin >> id;
@@ -293,6 +359,7 @@ void CPersonsAndBuildings::AddStudent()
 	m_persons.push_back(shared_ptr<CBuildingRelatedPerson>(new CStudent(
 		gender, age, name, height, weight, *FindBuildingByName(CBuilding::Type::UNIVERSITY, universityName), grade
 	)));
+	m_changed = true;
 }
 
 void CPersonsAndBuildings::AddWorker()
@@ -326,6 +393,7 @@ void CPersonsAndBuildings::AddWorker()
 	m_persons.push_back(shared_ptr<CBuildingRelatedPerson>(new CWorker(
 		gender, age, name, height, weight, *FindBuildingByName(CBuilding::Type::COMPANY, companyName), specialty
 	)));
+	m_changed = true;
 }
 
 CPersonsAndBuildings::Buildings::const_iterator
@@ -394,6 +462,7 @@ void CPersonsAndBuildings::RenameBuilding(CBuilding::Type type)
 	}
 
 	(*target)->SetName(newName);
+	m_changed = true;
 }
 
 void CPersonsAndBuildings::RemoveBuilding(CBuilding::Type type)
@@ -411,6 +480,7 @@ void CPersonsAndBuildings::RemoveBuilding(CBuilding::Type type)
 	FindBuildingPersons(*target, [this](Persons::iterator it){ m_persons.erase(it); });
 
 	m_buildings.erase(target);
+	m_changed = true;
 }
 
 void CPersonsAndBuildings::PrintBuildingPersons(CBuilding::Type type) const
@@ -428,18 +498,18 @@ void CPersonsAndBuildings::PrintBuildingPersons(CBuilding::Type type) const
 	FindBuildingPersons(*target, [](Persons::const_iterator it){ cout << (*it)->ToString() << endl; });
 }
 
-void CPersonsAndBuildings::ThrowNotFoundException(std::string const& objName)
+void CPersonsAndBuildings::ThrowNotFoundException(string const& objName)
 {
 	throw runtime_error(objName + " is not found");
 }
 
-void CPersonsAndBuildings::ThrowAlreadyExistsException(std::string const& objName)
+void CPersonsAndBuildings::ThrowAlreadyExistsException(string const& objName)
 {
 	throw runtime_error(objName + " already exists");
 }
 
-void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
-	std::function<void(Persons::const_iterator)> cb) const
+void CPersonsAndBuildings::FindBuildingPersons(shared_ptr<CBuilding> const& building,
+	function<void(Persons::const_iterator)> cb) const
 {
 	for (auto it = m_persons.cbegin(); it != m_persons.cend(); ++it)
 	{
@@ -450,8 +520,8 @@ void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const&
 	}
 }
 
-void CPersonsAndBuildings::FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
-	std::function<void(Persons::iterator)> cb)
+void CPersonsAndBuildings::FindBuildingPersons(shared_ptr<CBuilding> const& building,
+	function<void(Persons::iterator)> cb)
 {
 	for (auto it = m_persons.begin(); it != m_persons.end(); ++it)
 	{
@@ -505,11 +575,12 @@ void CPersonsAndBuildings::RemovePerson(CBuildingRelatedPerson::Type type)
 
 	auto person = GetPersonByID(type, id);
 	m_persons.erase(person);
+	m_changed = true;
 }
 
 CPerson::Gender CPersonsAndBuildings::GetGender()
 {
-	std::map<std::string, CPerson::Gender>::const_iterator result;
+	map<string, CPerson::Gender>::const_iterator result;
 
 	do
 	{

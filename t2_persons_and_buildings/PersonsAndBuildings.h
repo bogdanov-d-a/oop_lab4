@@ -6,6 +6,9 @@
 class CPersonsAndBuildings
 {
 public:
+	CPersonsAndBuildings(const char fileName[]);
+	void WriteUnsavedData() const;
+
 	void PrintUniversityList() const;
 	void PrintCompanyList() const;
 	void RenameUniversity();
@@ -31,6 +34,8 @@ private:
 
 	Persons m_persons;
 	Buildings m_buildings;
+	bool m_changed;
+	std::string m_fileName;
 
 	Buildings::const_iterator FindBuildingByName(CBuilding::Type type, std::string name) const;
 	Buildings::iterator FindBuildingByName(CBuilding::Type type, std::string name);
