@@ -49,9 +49,6 @@ private:
 	void FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
 		std::function<void(Persons::const_iterator)> cb) const;
 
-	void FindBuildingPersons(std::shared_ptr<CBuilding> const& building,
-		std::function<void(Persons::iterator)> cb);
-
 	void PrintPersonList(CBuildingRelatedPerson::Type type) const;
 	Persons::iterator GetPersonByID(CBuildingRelatedPerson::Type type, size_t id);
 	void RemovePerson(CBuildingRelatedPerson::Type type);

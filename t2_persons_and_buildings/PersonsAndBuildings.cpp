@@ -466,7 +466,10 @@ void CPersonsAndBuildings::RemoveBuilding(CBuilding::Type type)
 		ThrowNotFoundException(MakeFirstLetterUppercase(CBuilding::TYPE_TO_NAME.at(type)));
 	}
 
-	FindBuildingPersons(*target, [this](Persons::iterator it){ m_persons.erase(it); });
+	m_persons.remove_if(
+		[&target](shared_ptr<CBuildingRelatedPerson> const& person)
+		{ return (person->GetBuilding().get() == target->get()); }
+	);
 
 	m_buildings.erase(target);
 	m_changed = true;
@@ -501,18 +504,6 @@ void CPersonsAndBuildings::FindBuildingPersons(shared_ptr<CBuilding> const& buil
 	function<void(Persons::const_iterator)> cb) const
 {
 	for (auto it = m_persons.cbegin(); it != m_persons.cend(); ++it)
-	{
-		if ((*it)->GetBuilding().get() == building.get())
-		{
-			cb(it);
-		}
-	}
-}
-
-void CPersonsAndBuildings::FindBuildingPersons(shared_ptr<CBuilding> const& building,
-	function<void(Persons::iterator)> cb)
-{
-	for (auto it = m_persons.begin(); it != m_persons.end(); ++it)
 	{
 		if ((*it)->GetBuilding().get() == building.get())
 		{
