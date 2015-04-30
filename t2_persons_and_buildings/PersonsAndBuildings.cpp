@@ -262,6 +262,72 @@ void CPersonsAndBuildings::RemoveWorker()
 	RemovePerson(CBuildingRelatedPerson::Type::WORKER);
 }
 
+void CPersonsAndBuildings::AddStudent()
+{
+	CPerson::Gender gender = GetGender();
+
+	cout << "Enter age: ";
+	unsigned age;
+	cin >> age;
+
+	cout << "Enter name: ";
+	string name;
+	getline(cin, name);
+
+	cout << "Enter height: ";
+	unsigned height;
+	cin >> height;
+
+	cout << "Enter weight: ";
+	unsigned weight;
+	cin >> weight;
+
+	cout << "Enter university name: ";
+	string universityName;
+	getline(cin, universityName);
+
+	cout << "Enter grade: ";
+	unsigned grade;
+	cin >> grade;
+
+	m_persons.push_back(shared_ptr<CBuildingRelatedPerson>(new CStudent(
+		gender, age, name, height, weight, *FindBuildingByName(CBuilding::Type::UNIVERSITY, universityName), grade
+	)));
+}
+
+void CPersonsAndBuildings::AddWorker()
+{
+	CPerson::Gender gender = GetGender();
+
+	cout << "Enter age: ";
+	unsigned age;
+	cin >> age;
+
+	cout << "Enter name: ";
+	string name;
+	getline(cin, name);
+
+	cout << "Enter height: ";
+	unsigned height;
+	cin >> height;
+
+	cout << "Enter weight: ";
+	unsigned weight;
+	cin >> weight;
+
+	cout << "Enter company name: ";
+	string companyName;
+	getline(cin, companyName);
+
+	cout << "Enter specialty: ";
+	string specialty;
+	getline(cin, specialty);
+
+	m_persons.push_back(shared_ptr<CBuildingRelatedPerson>(new CWorker(
+		gender, age, name, height, weight, *FindBuildingByName(CBuilding::Type::COMPANY, companyName), specialty
+	)));
+}
+
 CPersonsAndBuildings::Buildings::const_iterator
 CPersonsAndBuildings::FindBuildingByName(CBuilding::Type type, string name) const
 {
@@ -439,4 +505,20 @@ void CPersonsAndBuildings::RemovePerson(CBuildingRelatedPerson::Type type)
 
 	auto person = GetPersonByID(type, id);
 	m_persons.erase(person);
+}
+
+CPerson::Gender CPersonsAndBuildings::GetGender()
+{
+	std::map<std::string, CPerson::Gender>::const_iterator result;
+
+	do
+	{
+		cout << "Enter gender: ";
+		string input;
+		getline(cin, input);
+		result = CPerson::NAME_TO_GENDER.find(ToLower(input));
+	} 
+	while (result == CPerson::NAME_TO_GENDER.cend());
+
+	return result->second;
 }

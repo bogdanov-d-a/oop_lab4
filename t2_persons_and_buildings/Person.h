@@ -5,6 +5,8 @@ class CPerson
 public:
 	enum class Gender { MALE, FEMALE };
 
+	static const std::map<std::string, Gender> NAME_TO_GENDER;
+
 	CPerson(Gender gender, unsigned age, std::string const& name, unsigned height, unsigned weight);
 	virtual ~CPerson();
 

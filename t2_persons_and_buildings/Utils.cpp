@@ -35,3 +35,11 @@ string MakeFirstLetterUppercase(string const& str)
 	result[0] = static_cast<char>(toupper(result[0]));
 	return result;
 }
+
+string ToLower(string const& str)
+{
+	string result;
+	result.resize(str.length());
+	transform(str.cbegin(), str.cend(), result.begin(), [](char c){ return tolower(c); });
+	return result;
+}

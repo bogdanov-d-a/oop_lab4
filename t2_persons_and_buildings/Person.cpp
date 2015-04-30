@@ -5,6 +5,11 @@
 
 using namespace std;
 
+const map<string, CPerson::Gender> CPerson::NAME_TO_GENDER = {
+	{ "male", Gender::MALE },
+	{ "female", Gender::FEMALE }
+};
+
 CPerson::CPerson(Gender gender, unsigned age, string const& name, unsigned height, unsigned weight)
 	:m_gender(gender)
 	,m_age(age)

@@ -22,6 +22,8 @@ public:
 	void EditWorker();
 	void RemoveStudent();
 	void RemoveWorker();
+	void AddStudent();
+	void AddWorker();
 
 private:
 	typedef std::list<std::shared_ptr<CBuildingRelatedPerson>> Persons;
@@ -48,4 +50,6 @@ private:
 	void PrintPersonList(CBuildingRelatedPerson::Type type) const;
 	Persons::iterator GetPersonByID(CBuildingRelatedPerson::Type type, size_t id);
 	void RemovePerson(CBuildingRelatedPerson::Type type);
+
+	static CPerson::Gender GetGender();
 };

@@ -21,3 +21,4 @@
 #include <memory>
 #include <list>
 #include <iostream>
+#include <algorithm>
