@@ -43,3 +43,17 @@ string ToLower(string const& str)
 	transform(str.cbegin(), str.cend(), result.begin(), [](char c){ return tolower(c); });
 	return result;
 }
+
+unsigned ReadUnsignedFromStreamLine()
+{
+	string input;
+	getline(cin, input);
+	return stoul(input);
+}
+
+size_t ReadSizeFromStreamLine()
+{
+	string input;
+	getline(cin, input);
+	return stoul(input);
+}

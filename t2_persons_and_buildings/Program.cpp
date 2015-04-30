@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "PersonsAndBuildings.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	CPersonsAndBuildings personsAndBuildings(argv[1]);
 
-	int answer;
+	unsigned answer;
 	do
 	{
 		cout << "Choose an action: " << endl;
@@ -42,8 +43,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		try
 		{
-			cin >> answer;
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			answer = ReadUnsignedFromStreamLine();
 
 			switch (answer)
 			{
@@ -128,6 +128,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		catch (exception const& e)
 		{
+			answer = 0;
 			cout << e.what() << endl;
 		}
 	}

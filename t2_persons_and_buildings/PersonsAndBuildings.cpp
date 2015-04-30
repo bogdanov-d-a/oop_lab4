@@ -157,8 +157,7 @@ void CPersonsAndBuildings::EditStudent()
 	m_changed = true;
 
 	cout << "Enter ID: ";
-	size_t id;
-	cin >> id;
+	size_t id = ReadSizeFromStreamLine();
 
 	CStudent *student = dynamic_cast<CStudent*>(GetPersonByID(CBuildingRelatedPerson::Type::STUDENT, id)->get());
 
@@ -170,17 +169,15 @@ void CPersonsAndBuildings::EditStudent()
 	cout << "5. University" << endl;
 	cout << "6. Grade" << endl;
 
-	size_t action;
-	cin >> action;
+	size_t action = ReadSizeFromStreamLine();
 
 	switch (action)
 	{
 	case 1:
 	{
 		cout << "Enter new age: ";
-		unsigned age;
-		cin >> age;
-		student->SetAge(age);
+		student->SetAge(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	case 2:
@@ -189,22 +186,21 @@ void CPersonsAndBuildings::EditStudent()
 		string name;
 		getline(cin, name);
 		student->SetName(name);
+		break;
 	}
 
 	case 3:
 	{
 		cout << "Enter new height: ";
-		unsigned height;
-		cin >> height;
-		student->SetHeight(height);
+		student->SetHeight(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	case 4:
 	{
 		cout << "Enter new weight: ";
-		unsigned weight;
-		cin >> weight;
-		student->SetWeight(weight);
+		student->SetWeight(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	case 5:
@@ -220,14 +216,14 @@ void CPersonsAndBuildings::EditStudent()
 		}
 
 		student->SetBuilding(*target);
+		break;
 	}
 
 	case 6:
 	{
 		cout << "Enter new grade: ";
-		unsigned grade;
-		cin >> grade;
-		student->SetGrade(grade);
+		student->SetGrade(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	default:
@@ -261,9 +257,8 @@ void CPersonsAndBuildings::EditWorker()
 	case 1:
 	{
 		cout << "Enter new age: ";
-		unsigned age;
-		cin >> age;
-		worker->SetAge(age);
+		worker->SetAge(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	case 2:
@@ -272,22 +267,21 @@ void CPersonsAndBuildings::EditWorker()
 		string name;
 		getline(cin, name);
 		worker->SetName(name);
+		break;
 	}
 
 	case 3:
 	{
 		cout << "Enter new height: ";
-		unsigned height;
-		cin >> height;
-		worker->SetHeight(height);
+		worker->SetHeight(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	case 4:
 	{
 		cout << "Enter new weight: ";
-		unsigned weight;
-		cin >> weight;
-		worker->SetWeight(weight);
+		worker->SetWeight(ReadUnsignedFromStreamLine());
+		break;
 	}
 
 	case 5:
@@ -303,14 +297,16 @@ void CPersonsAndBuildings::EditWorker()
 		}
 
 		worker->SetBuilding(*target);
+		break;
 	}
 
 	case 6:
 	{
 		cout << "Enter new specialty: ";
 		string specialty;
-		cin >> specialty;
+		getline(cin, specialty);
 		worker->SetSpecialty(specialty);
+		break;
 	}
 
 	default:
@@ -333,28 +329,24 @@ void CPersonsAndBuildings::AddStudent()
 	CPerson::Gender gender = GetGender();
 
 	cout << "Enter age: ";
-	unsigned age;
-	cin >> age;
+	unsigned age = ReadUnsignedFromStreamLine();
 
 	cout << "Enter name: ";
 	string name;
 	getline(cin, name);
 
 	cout << "Enter height: ";
-	unsigned height;
-	cin >> height;
+	unsigned height = ReadUnsignedFromStreamLine();
 
 	cout << "Enter weight: ";
-	unsigned weight;
-	cin >> weight;
+	unsigned weight = ReadUnsignedFromStreamLine();
 
 	cout << "Enter university name: ";
 	string universityName;
 	getline(cin, universityName);
 
 	cout << "Enter grade: ";
-	unsigned grade;
-	cin >> grade;
+	unsigned grade = ReadUnsignedFromStreamLine();
 
 	m_persons.push_back(shared_ptr<CBuildingRelatedPerson>(new CStudent(
 		gender, age, name, height, weight, *FindBuildingByName(CBuilding::Type::UNIVERSITY, universityName), grade
@@ -367,20 +359,17 @@ void CPersonsAndBuildings::AddWorker()
 	CPerson::Gender gender = GetGender();
 
 	cout << "Enter age: ";
-	unsigned age;
-	cin >> age;
+	unsigned age = ReadUnsignedFromStreamLine();
 
 	cout << "Enter name: ";
 	string name;
 	getline(cin, name);
 
 	cout << "Enter height: ";
-	unsigned height;
-	cin >> height;
+	unsigned height = ReadUnsignedFromStreamLine();
 
 	cout << "Enter weight: ";
-	unsigned weight;
-	cin >> weight;
+	unsigned weight = ReadUnsignedFromStreamLine();
 
 	cout << "Enter company name: ";
 	string companyName;
@@ -570,8 +559,7 @@ CPersonsAndBuildings::GetPersonByID(CBuildingRelatedPerson::Type type, size_t id
 void CPersonsAndBuildings::RemovePerson(CBuildingRelatedPerson::Type type)
 {
 	cout << "Enter ID: ";
-	size_t id;
-	cin >> id;
+	size_t id = ReadSizeFromStreamLine();
 
 	auto person = GetPersonByID(type, id);
 	m_persons.erase(person);
